@@ -7,7 +7,8 @@ import Homepage from './Homepage.js';
 
 export default function GMDB() {
   const [movieList, setMovieList] = useState([])
-  const[clickedMovie, setClickedMovie] = useState(null)
+  const[clickedMovie, setClickedMovie] = useState('')
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetch(`http://localhost:3001/movies`)
@@ -20,11 +21,13 @@ export default function GMDB() {
   if ( movieList.length === 0){
     return <div>Loading</div>
   }
-  
+
+
+
   const handleMovieClick = (event)  => {
     setClickedMovie(event.target.id);
     console.log('this is the selected movie ID: ', clickedMovie);
-    // navigate(`/movie/${clickedMovie}`)
+    navigate(`/id/${clickedMovie}`)
   };
 
 
@@ -34,6 +37,7 @@ export default function GMDB() {
       <Routes>
         <Route exact path='/' element={ <Homepage movieList={movieList} clickedMovie={handleMovieClick}/>}/>
         <Route path = "/id/:id" element={ <Movie  movie={clickedMovie}/>}/>
+        {/* <Route path='/movie/:selectedMovie' element ={ <Movie/>} /> */}
       </Routes>
       <ul >
         {/* <li>{clickedMovie.title}</li>
