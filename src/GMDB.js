@@ -1,6 +1,7 @@
 import './App.css';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import React, {useState, useEffect } from 'react';
+import{ useNavigate } from 'react-router-dom';
 import Movie from './Movie.js'
 import Homepage from './Homepage.js';
 
@@ -21,8 +22,9 @@ export default function GMDB() {
   }
   
   const handleMovieClick = (event)  => {
-    setClickedMovie(event.target);
-    console.log(event.target);
+    setClickedMovie(event.target.id);
+    console.log('this is the selected movie ID: ', clickedMovie);
+    // navigate(`/movie/${clickedMovie}`)
   };
 
 
@@ -33,7 +35,7 @@ export default function GMDB() {
         <Route exact path='/' element={ <Homepage movieList={movieList} clickedMovie={handleMovieClick}/>}/>
         <Route path = "/id/:id" element={ <Movie  movie={clickedMovie}/>}/>
       </Routes>
-      <ul onClick = {(event) => handleMovieClick(event)} className='selectedMovie'>
+      <ul >
         {/* <li>{clickedMovie.title}</li>
         <li>{clickedMovie.poster}</li>
         <li>{clickedMovie.cast}</li> */}
@@ -42,9 +44,9 @@ export default function GMDB() {
       <ul>
         {movieList.map(movie => {
           return(
-            <div>
-              <li>{movie.title}</li>
-              <img src={`${movie.poster}`} />
+            <div onClick = {(event) => handleMovieClick(event)} className='selectedMovie' id={movie.movieId}>
+              <li id={`${movie.movieId}`}>{movie.title}</li>
+              <img id={movie.movieId} src={`${movie.poster}`} />
             </div>
           )
         })}

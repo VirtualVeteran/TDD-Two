@@ -11,7 +11,7 @@ const Movie = ({ movie }) => {
     <div className="movie-info">
       <div className="details-pane">
         <div className="details-text">
-          <h1>{capitalizeString(movie.title)}</h1>
+          <h1>{capitalizeString(movie.movieId)}</h1>
           <p>{movie.title}</p>
            <li>{selectedMovie}</li>
             <div className="poster-pane">
